@@ -31,6 +31,12 @@ public class UI : MonoBehaviour
 		}
 	}
 
+	public void OnHelp()
+	{
+		// toggle help screen
+		ui.SetActive(!ui.activeInHierarchy);
+	}
+
 	string CalculateFPS(float timeSinceLastUpdate, int count)
 	{
 		if (count != 0)
@@ -44,12 +50,24 @@ public class UI : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonDown("Help"))
-		{
-			if (ui.activeInHierarchy) ui.SetActive(false);
-			else ui.SetActive(true);
-		}
+		// if (Input.GetButtonDown("Help"))
+		// {
+		// 	if (ui.activeInHierarchy) ui.SetActive(false);
+		// 	else ui.SetActive(true);
+		// }
 		zoom.text = "Zoom: " + (1 / mandelbrot.scale).ToString("F2") + "x";
 		iterations.text = "Iterations: " + mandelbrot.maxIter;
+	}
+	
+	public void OnQuit()
+	{
+		// save any game data here
+#if UNITY_EDITOR
+		// Application.Quit() does not work in the editor so
+		// UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+		UnityEditor.EditorApplication.isPlaying = false;
+#else
+             Application.Quit();
+#endif
 	}
 }
