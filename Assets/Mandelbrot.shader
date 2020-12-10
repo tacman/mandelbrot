@@ -48,7 +48,9 @@
 				}
 				float4 color = 0;
 				if (iteration < _maxIter){
-					color = tex2D(_Color, float2((iteration / (float)_maxIter) * (_maxIter*0.01) + _Time.x, 0));
+					// turn off timer, maybe add as a parameter
+					// color = tex2D(_Color, float2((iteration / (float)_maxIter) * (_maxIter*0.01) + _Time.x, 0));
+					color = tex2D(_Color, float2((iteration / (float)_maxIter) * (_maxIter*0.01), 0));
 				}
 				return color;
 			}

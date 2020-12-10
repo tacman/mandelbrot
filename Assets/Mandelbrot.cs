@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class Mandelbrot : MonoBehaviour
@@ -23,14 +24,17 @@ public class Mandelbrot : MonoBehaviour
 
 	void Update()
 	{
+		
 		if (Input.GetButton("Up")) offsetY += scale * speed * Time.deltaTime;
 		if (Input.GetButton("Down")) offsetY -= scale * speed * Time.deltaTime;
 		if (Input.GetButton("Left")) offsetX -= scale * speed * Time.deltaTime * (1f / aspectRatio);
 		if (Input.GetButton("Right")) offsetX += scale * speed * Time.deltaTime * (1f / aspectRatio);
 		if (Input.GetButton("Zoom In")) scale -= 0.98f * scale * Time.deltaTime;
 		if (Input.GetButton("Zoom Out")) scale += 1.02f * scale * Time.deltaTime;
-		if (scale > 20.0f) scale = 20.0f;
-		if (scale < 0.00002f) scale = 0.00002f;
+
+		scale = Mathf.Clamp(scale, 0.00002f, 20.0f);
+		// if (scale > 20.0f) scale = 20.0f;
+		// if (scale < 0.00002f) scale = 0.00002f;
 		if (Input.GetButtonDown("More Iterations"))
 		{
 			int iter = maxIter * 2;
